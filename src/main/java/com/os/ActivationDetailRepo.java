@@ -24,7 +24,7 @@ public interface ActivationDetailRepo {
     @Data
     public static final class GroupIdentifier {
         @Field("_id")
-        private String id;   
+        private String machineId;   
     }
     
     @Data
