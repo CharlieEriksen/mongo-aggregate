@@ -1,5 +1,7 @@
 package com.os;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Map;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -19,9 +21,15 @@ public class Tester {
     @Scheduled(initialDelay = 1000, fixedDelay = 900000000)
     public void startTest() {
         
-        var c = new FilterBuilder(Map.of("entitlementId", "24723871", "purchaseOrder", "4502229319"))
+        var c = new FilterBuilder(Map.of("entitlementId", "24723871", 
+                "purchaseOrder", "4502229319", "salesOrderId", "310925562"))
                 .getCriteria();
-        var l = repo.searchMachineByFilter(c, PageRequest.of(0, 3));
-        log.info("Tolamu {}", l.getTotalElements());
+        
+        
+        var start = Instant.now();
+        var response = repo.searchMachineByFilter(c, PageRequest.of(0, 3));
+        log.info("Time taken {}", Duration.between(start, Instant.now()).toMillis());
+        log.info("Data response size {}", response.getContent().size());
+        log.info("Data response {}", response.getContent());
     }
 }

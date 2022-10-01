@@ -20,7 +20,7 @@ public class FilterBuilder {
             criterias.add(c);
         }
         if (requestParam.containsKey("salesOrder")) {
-            var c = Criteria.where("entitlementInfo.salesOrder").is(requestParam.get("salesOrder"));
+            var c = Criteria.where("entitlementInfo.salesOrder").is(requestParam.get("salesOrderId"));
             criterias.add(c);
         }
         if (requestParam.containsKey("companyName")) {
@@ -33,11 +33,16 @@ public class FilterBuilder {
         if (criterias.isEmpty()) {
             return null;
         }
+        
+        return new Criteria().andOperator(criterias);
+        
+        /*
         var it = criterias.iterator();
         var cri = it.next();
         while (it.hasNext()) {
             cri.andOperator(it.next());
         }
         return cri;
+        */
     }
 }

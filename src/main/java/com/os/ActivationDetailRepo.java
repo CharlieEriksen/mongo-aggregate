@@ -19,12 +19,17 @@ public interface ActivationDetailRepo {
     
     long countMachineByFilter(CriteriaDefinition c);
     
-    Page<GroupIdentifier> searchMachineByFilter(CriteriaDefinition c, Pageable pageable);
+    Page<AggregateResponse> searchMachineByFilter(CriteriaDefinition c, Pageable pageable);
     
     @Data
-    public static final class GroupIdentifier {
+    public static final class AggregateResponse {
+        
         @Field("_id")
         private String machineId;   
+        
+        private String productLineDescription;
+        
+        private String machineName;
     }
     
     @Data
